@@ -3,8 +3,15 @@ import reRenderImages from "./utils";
 import ImageInfo from "./types";
 import Axios from "axios";
 
-export default function useImagesHook() {
-  const [images = [], setImages] = useState<Array<ImageInfo>>();
+/**
+ * 图片操作hooks
+ * 定义了返回值的类型，之前的bug解决了
+ */
+export default function useImagesHook(): [
+  ImageInfo[],
+  (index: number, curImages?: ImageInfo[]) => void
+] {
+  const [images, setImages] = useState<ImageInfo[]>([]);
 
   const onHandleImageClick = useCallback(
     (index: number, curImages?: ImageInfo[]) => {
